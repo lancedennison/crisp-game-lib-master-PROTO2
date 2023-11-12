@@ -72,7 +72,7 @@ function update() {
   }
   else if(p.y < 5 || p.y > 97)
     v.y = 0;
-  if (box(p, 7, 7).isColliding.rect.blue) {
+  if (box(p, 7, 7).isColliding.rect.light_red) {
     play("explosion");
     end();
   }
