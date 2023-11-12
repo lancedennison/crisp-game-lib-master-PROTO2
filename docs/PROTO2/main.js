@@ -27,28 +27,25 @@ function update() {
     p = vec(80, 50);
     v = vec();
     jumpWay = 1.75;
-    walls = times(19, (i) => {
+    walls = times(5, (i) => {
       return {
-        pos: vec(i * 6 - 3, 50),
+        pos: vec(i * rnd(6, 30) - 3, 50),
         width: 60,
       };
     });
     wallVy = 0;
     wallVw = 0;
-    topWallX = 50;
-    topWallW = 60;
   }
 
   const scr = difficulty * 0.4;
   walls.forEach((w, i) => {
     w.pos.x += scr;
     if (w.pos.x > 110) {
-      w.pos.x -= walls.length * 6;
+      w.pos.x -= rnd(110, 210);
       const pw = walls[wrap(i - 1, 0, walls.length)];
-      
     }
     color("light_red");
-    rect(w.pos.x -2, 0, 5, 6);
+    rect(w.pos.x - 2, 0, 5, 6);
     rect(w.pos.x - 2, 100, 5, -6);
   });
 
@@ -73,7 +70,7 @@ function update() {
     play("jump");
     v.y = jumpWay *= -1;
   }
-  else if(p.y < 5 || p.y > 96.5)
+  else if(p.y < 5 || p.y > 97)
     v.y = 0;
   if (box(p, 7, 7).isColliding.rect.blue) {
     play("explosion");
