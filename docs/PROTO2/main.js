@@ -28,23 +28,19 @@ function update() {
   if (!ticks) {
     p = vec(80, 50);
     v = vec();
-    jumpWay = 1.75;
-    //begining wall generation, the x in times(x, (i)) changes how many
-    //walls are on the screen at one time
+    jumpWay = 1.75; //How fast the player changes gravity
     walls = [];
   }
 
+  //generates a wall every second
   if(ticks % 60 == 0){
     walls.push({ pos: vec(-5, 0), width: rnd(6, difficulty * 10), side: counter % 2})
     counter ++;
   }
   walls.forEach((w, i) => {
     w.pos.x += scr;
-    //if (w.pos.x > 110) {
-      //w.pos.x -= rnd(110, 210);
-      //const pw = walls[wrap(i - 1, 0, walls.length)];
-    //}
     color("light_red");
+    //determines if wall spawns on top or bottom
     if(w.side == 0){
       rect(w.pos.x - 2, 0, 5, w.width);
     }else{
@@ -52,27 +48,14 @@ function update() {
     }
   });
 
+  //removes wall if it reaches end of screen
   walls.forEach((i) => {
     if(i.pos.x > 100){
-      console.log("removed");
       walls.shift();
     }
   });
 
-  console.log(walls.length);
   p.add(v);
-  //score += scr = (0.6) + difficulty * 0.1;
-  /*if ((floorAppDist -= scr) < 0) {
-    floorAppDist = rnd(99);
-    floors.push(-9, vec(rnd(99)));
-  }*/
-  //p.y += scr;
-  //color("blue");
-  /*floors = floors.filter((f) => {
-    f.x += scr;
-    box(f, 7, 33);
-    return f.x < 99;
-  });*/
   color("transparent");
   color("green");
   box(p, 7, 7);
