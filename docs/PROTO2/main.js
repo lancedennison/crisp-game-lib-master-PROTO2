@@ -1,4 +1,4 @@
-title = "JUJUMP";
+title = "SLEEP";
 
 description = `
 [Press] Jump
@@ -9,6 +9,7 @@ characters = [];
 options = {
   isPlayingBgm: true,
   isReplayEnabled: true,
+  seed: 90
 };
 
 let p, v;
@@ -23,23 +24,23 @@ let wallVy;
 let wallVw;
 
 function update() {
+  const scr = difficulty * 0.4;
   if (!ticks) {
     p = vec(80, 50);
     v = vec();
     jumpWay = 1.75;
     //begining wall generation, the x in times(x, (i)) changes how many
     //walls are on the screen at one time
-    walls = times(10, (i) => {
-      return {
-        pos: vec(i * rnd(6, 30) - 3, 50),
-        width: 60,
-      };
-    });
+    walls = [];
     wallVy = 0;
     wallVw = 0;
   }
 
-  const scr = difficulty * 0.4;
+  console.log(ticks % 60 == 0);
+  console.log(ticks);
+  if(ticks % 60 == 0){
+    walls.push({ pos: vec(-5, 0), width: rnd(6, difficulty * 10)})
+  }
   walls.forEach((w, i) => {
     w.pos.x += scr;
     if (w.pos.x > 110) {
@@ -48,12 +49,17 @@ function update() {
     }
     color("light_red");
     if(i % 2 == 0){
-      rect(w.pos.x - 2, 0, 5, 6);
+      rect(w.pos.x - 2, 0, 5, w.width);
     }else{
-      rect(w.pos.x - 2, 100, 5, -6);
+      rect(w.pos.x - 2, 100, 5, w.width * -1);
     }
   });
 
+  remove(walls, (i)=> {
+    if(i.pos.x > 110){
+      return true;
+    }
+  })
 
   p.add(v);
   //score += scr = (0.6) + difficulty * 0.1;
