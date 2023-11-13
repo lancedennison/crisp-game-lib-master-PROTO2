@@ -27,7 +27,9 @@ function update() {
     p = vec(80, 50);
     v = vec();
     jumpWay = 1.75;
-    walls = times(5, (i) => {
+    //begining wall generation, the x in times(x, (i)) changes how many
+    //walls are on the screen at one time
+    walls = times(10, (i) => {
       return {
         pos: vec(i * rnd(6, 30) - 3, 50),
         width: 60,
@@ -45,8 +47,11 @@ function update() {
       const pw = walls[wrap(i - 1, 0, walls.length)];
     }
     color("light_red");
-    rect(w.pos.x - 2, 0, 5, 6);
-    rect(w.pos.x - 2, 100, 5, -6);
+    if(i % 2 == 0){
+      rect(w.pos.x - 2, 0, 5, 6);
+    }else{
+      rect(w.pos.x - 2, 100, 5, -6);
+    }
   });
 
 
