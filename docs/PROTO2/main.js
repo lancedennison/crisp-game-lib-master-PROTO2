@@ -4,7 +4,17 @@ description = `
 [Press] Jump
 `;
 
-characters = [];
+characters = [
+`
+  b
+  b
+  b
+bBBBb
+ bbb
+  b 
+`
+
+];
 
 options = {
   isPlayingBgm: true,
@@ -78,9 +88,16 @@ function update() {
   if (input.isJustPressed) {
     play("jump");
     v.y = (jumpWay *= -1);
-  }
-  else if(p.y < 7 || p.y > 96)
+  } else if(p.y < 7 || p.y > 96) {
     v.y = 0;
+  }
+
+  if (jumpWay > 0) {
+    char("a", 20, 50);
+  } else {
+    char("a", 20, 50, {mirror: { y: -1}});
+  }
+
   if (box(p, 7, 7).isColliding.rect.light_red) {
     play("explosion");
     end();
