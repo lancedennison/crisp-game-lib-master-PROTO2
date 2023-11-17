@@ -26,9 +26,9 @@ let counter = 0;
 function update() {
   const scr = difficulty * 0.4;
   if (!ticks) {
-    p = vec(80, 50);
+    p = vec(80, 95);
     v = vec();
-    jumpWay = 1.75; //How fast the player changes gravity
+    jumpWay = 5; //How fast the player changes gravity
     walls = [];
   }
 
@@ -61,9 +61,9 @@ function update() {
   box(p, 7, 7);
   if (input.isJustPressed) {
     play("jump");
-    v.y = jumpWay *= -1;
+    v.y = (jumpWay *= -1);
   }
-  else if(p.y < 5 || p.y > 97)
+  else if(p.y < 7 || p.y > 96)
     v.y = 0;
   if (box(p, 7, 7).isColliding.rect.light_red) {
     play("explosion");
