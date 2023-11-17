@@ -23,6 +23,8 @@ let walls;
 
 let counter = 0;
 
+let spawnrate = 60;
+
 function update() {
   const scr = difficulty * 0.4;
   if (!ticks) {
@@ -32,11 +34,25 @@ function update() {
     walls = [];
   }
 
-  //generates a wall every second
-  if(ticks % 60 == 0){
+  //generates a wall based on the spawnrate
+  if(ticks % spawnrate == 0){
     walls.push({ pos: vec(-5, 0), width: rnd(6, difficulty * 10), side: counter % 2})
     counter ++;
+    //adds to score by 1 everytime a wall spawns
+    addScore(1)
   }
+  
+  //ups the spawn every 10 seconds
+  if(ticks % 600 == 0){
+    if(ticks == 0 && spawnrate < 60){
+      spawnrate = 60;
+    }
+    else{
+      //kept like this instead of spawnrate-- incase we want to change the value
+      spawnrate = spawnrate - 2;
+    }
+  }
+
   walls.forEach((w, i) => {
     w.pos.x += scr;
     color("light_red");
@@ -69,4 +85,5 @@ function update() {
     play("explosion");
     end();
   }
+  
 }
