@@ -24,7 +24,11 @@ options = {
 
 let p, v;
 let floors;
-let jumpWay;
+let speed;
+let delay;
+let jumpWay = 1;
+let upVel;
+let downVel;
 let floorAppDist;
 let scr;
 
@@ -40,7 +44,7 @@ function update() {
   if (!ticks) {
     p = vec(80, 95);
     v = vec();
-    jumpWay = 5; //How fast the player changes gravity
+    speed = 3.5; //How fast the player changes gravity
     walls = [];
   }
 
@@ -82,12 +86,16 @@ function update() {
   });
 
   p.add(v);
+  //p.y -= delay;
+  //delay += jumpway
   color("transparent");
   color("green");
   box(p, 7, 7);
   if (input.isJustPressed) {
     play("jump");
-    v.y = (jumpWay *= -1);
+    delay = jumpWay * 1;//adds delay
+    jumpWay *= -1;
+    v.y = speed * jumpWay;
   } else if(p.y < 7 || p.y > 96) {
     v.y = 0;
   }
