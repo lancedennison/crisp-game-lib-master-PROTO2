@@ -31,6 +31,7 @@ let upVel;
 let downVel;
 let floorAppDist;
 let scr;
+let jumping = true;
 
 /** @type {{pos: Vector, width: number, side: number}[]} */
 let walls;
@@ -42,7 +43,7 @@ let spawnrate = 60;
 function update() {
   const scr = difficulty * 0.4;
   if (!ticks) {
-    p = vec(80, 95);
+    p = vec(80, 50);
     v = vec();
     speed = 3.5; //How fast the player changes gravity
     walls = [];
@@ -53,7 +54,7 @@ function update() {
     walls.push({ pos: vec(-5, 0), width: rnd(6, difficulty * 10), side: rndi(0, 2)})
     counter ++;
     //adds to score by 1 everytime a wall spawns
-    addScore(1)
+    //addScore(1)
   }
   
   //ups the spawn every 10 seconds
@@ -93,12 +94,15 @@ function update() {
   color("green");
   box(p, 7, 7);
   if (input.isJustPressed) {
+    jumping = true;
     play("jump");
     delay = jumpWay * 1;//adds delay
     jumpWay *= -1;
     v.y = speed * jumpWay;
-  } else if(p.y < 7 || p.y > 96) {
+  } else if((p.y < 7 || p.y > 94.5) && jumping) {
     v.y = 0;
+    addScore(1);
+    jumping = false;
   }
 
   if (jumpWay > 0) {
