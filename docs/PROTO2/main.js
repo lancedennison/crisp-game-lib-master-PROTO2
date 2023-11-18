@@ -50,7 +50,7 @@ function update() {
 
   //generates a wall based on the spawnrate
   if(ticks % spawnrate == 0){
-    walls.push({ pos: vec(-5, 0), width: rnd(6, difficulty * 10), side: counter % 2})
+    walls.push({ pos: vec(-5, 0), width: rnd(6, difficulty * 10), side: rndi(0, 2)})
     counter ++;
     //adds to score by 1 everytime a wall spawns
     addScore(1)
@@ -71,6 +71,7 @@ function update() {
     w.pos.x += scr;
     color("light_red");
     //determines if wall spawns on top or bottom
+
     if(w.side == 0){
       rect(w.pos.x - 2, 0, 5, w.width);
     }else{
