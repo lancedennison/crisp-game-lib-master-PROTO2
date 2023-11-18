@@ -1,4 +1,4 @@
-title = "SLEEP";
+title = "GRAVITY SLAM";
 
 description = `
 [Press] Jump
