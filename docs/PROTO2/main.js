@@ -40,7 +40,7 @@ function update() {
   if (!ticks) {
     p = vec(80, 95);
     v = vec();
-    jumpWay = 5; //How fast the player changes gravity
+    jumpWay = 3.5; //How fast the player changes gravity
     walls = [];
   }
 
